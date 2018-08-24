@@ -1,54 +1,48 @@
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(initial-frame-alist (quote ((fullscreen . maximized))))
- '(package-selected-packages
-   (quote
-    (company-irony irony evil-leader color-theme-solarized))))
- ;; start maximized
+(setq visible-bell 1)
+(scroll-bar-mode -1)
 
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("org" . "http://orgmode.org/elpa/")
-                         ("marmalade" . "http://marmalade-repo.org/packages/")
-                         ("melpa" . "http://melpa.milkbox.net/packages/")))
 (package-initialize)
 
-(defun require-package (package)
-  (setq-default highlight-tabs t)
-  "Install given PACKAGE."
-  (unless (package-installed-p package)
-    (unless (assoc package package-archive-contents)
-      (package-refresh-contents))
-    (package-install package)))
+(require 'package)
+(setq package-enable-at-startup nil)
 
-(require-package 'evil)
-(require-package 'evil-leader)
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load custom-file 'noerror)
 
-(require-package 'color-theme-solarized)
-
-(require-package 'irony)
-(require-package 'company-irony)
+(defun open-config-file ()
+  (interactive)
+  (find-file "~/.emacs.d/init.el"))
 
 
-(eval-after-load 'company
-  '(add-to-list 'company-backends 'company-irony))
+;; Standard package repositories
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("elpy" . "https://jorgenschaefer.github.io/packages/"))
 
-(require 'evil)
-(evil-mode 1)
 
-(require 'evil-leader)
-(global-evil-leader-mode)
-(evil-leader/set-leader "<SPC>")
-(setq evil-leader/in-all-states 1)
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 
-(load-theme 'solarized t)
-(set-frame-parameter nil 'background-mode 'dark)
-(enable-theme 'solarized)
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+
+(use-package evil
+             :ensure t
+             :config
+             (evil-mode 1)
+
+             (use-package evil-leader
+                         :ensure t
+                         :config
+                         (global-evil-leader-mode)
+                         (evil-leader/set-leader "SPC")
+                         (evil-leader/set-key "ev" 'open-config-file)
+                         )
+             )
+
+
+(use-package solarized-theme
+             :ensure t
+             :config
+             (load-theme 'solarized-dark))
