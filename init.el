@@ -1,5 +1,12 @@
 (setq visible-bell 1)
 (scroll-bar-mode -1)
+(tool-bar-mode -1)
+
+(show-paren-mode 1)
+(setq show-paren-style 'mixed)
+
+(global-linum-mode 1)
+(global-hl-line-mode +1)
 
 (package-initialize)
 
@@ -28,21 +35,21 @@
 
 
 (use-package evil
-             :ensure t
-             :config
-             (evil-mode 1)
+  :ensure t
+  :config
+  (evil-mode 1)
 
-             (use-package evil-leader
-                         :ensure t
-                         :config
-                         (global-evil-leader-mode)
-                         (evil-leader/set-leader "SPC")
-                         (evil-leader/set-key "ev" 'open-config-file)
-                         )
-             )
+  (use-package evil-leader
+    :ensure t
+    :config
+    (global-evil-leader-mode)
+    (evil-leader/set-leader "SPC")
+    (evil-leader/set-key "ev" 'open-config-file)
+    )
+  )
 
 
 (use-package solarized-theme
-             :ensure t
-             :config
-             (load-theme 'solarized-dark))
+  :ensure t
+  :config
+  (load-theme 'solarized-dark))
