@@ -39,14 +39,37 @@
   :config
   (evil-mode 1)
 
+  (setq evil-shift-width 2)
+
+  (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
+  (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
+  (define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
+  (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)
+
   (use-package evil-leader
     :ensure t
     :config
     (global-evil-leader-mode)
     (evil-leader/set-leader "SPC")
     (evil-leader/set-key "ev" 'open-config-file)
-    )
   )
+)
+
+
+(use-package neotree
+  :ensure t
+  :config
+  (evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
+  (evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
+  (evil-define-key 'normal neotree-mode-map (kbd "I") 'neotree-hidden-file-toggle)
+  (evil-define-key 'normal neotree-mode-map (kbd "z") 'neotree-stretch-toggle)
+  (evil-define-key 'normal neotree-mode-map (kbd "R") 'neotree-refresh)
+  (evil-define-key 'normal neotree-mode-map (kbd "m") 'neotree-rename-node)
+  (evil-define-key 'normal neotree-mode-map (kbd "c") 'neotree-create-node)
+  (evil-define-key 'normal neotree-mode-map (kbd "d") 'neotree-delete-node)
+  (evil-define-key 'normal neotree-mode-map (kbd "s") 'neotree-enter-vertical-split)
+  (evil-define-key 'normal neotree-mode-map (kbd "S") 'neotree-enter-horizontal-split)
+)
 
 
 (use-package solarized-theme
