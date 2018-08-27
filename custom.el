@@ -9,7 +9,7 @@
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(package-selected-packages
    (quote
-    (helm solarized-theme evil-indent-textobject evil-surround evil use-package company-irony irony evil-leader color-theme-solarized))))
+    (cmake-mode helm solarized-theme evil-indent-textobject evil-surround evil use-package company-irony irony evil-leader color-theme-solarized))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

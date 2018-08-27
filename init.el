@@ -72,6 +72,17 @@
 )
 
 
+(use-package cmake-mode
+  :ensure t
+  :config
+  (setq auto-mode-alist
+      (append
+       '(("CMakeLists\\.txt\\'" . cmake-mode))
+       '(("\\.cmake\\'" . cmake-mode))
+       auto-mode-alist))
+)
+
+
 (use-package solarized-theme
   :ensure t
   :config
