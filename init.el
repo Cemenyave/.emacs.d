@@ -36,10 +36,12 @@
 
 (use-package evil
   :ensure t
+  :init
+  (setq evil-shift-width 2)
+
   :config
   (evil-mode 1)
 
-  (setq evil-shift-width 2)
 
   (define-key evil-normal-state-map (kbd "C-h") 'evil-window-left)
   (define-key evil-normal-state-map (kbd "C-j") 'evil-window-down)
@@ -53,6 +55,19 @@
     (evil-leader/set-leader "SPC")
     (evil-leader/set-key "ev" 'open-config-file)
   )
+)
+
+
+(use-package helm
+  :ensure t
+  :config (helm-mode 1))
+
+
+(use-package projectile
+  :ensure t
+  :config
+  (evil-define-key 'normal projectile-mode-map (kbd "C-c") 'projectile-command-map)
+  (projectile-mode +1)
 )
 
 
@@ -87,3 +102,4 @@
   :ensure t
   :config
   (load-theme 'solarized-dark))
+
